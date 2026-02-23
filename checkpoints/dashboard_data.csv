@@ -1,0 +1,41 @@
+category,entity,record_count,code,code_system,description,confidence
+condition,hypertension,114,I10,ICD-10-CM,Essential (primary) hypertension,exact
+condition,mass,59,R22.9,ICD-10-CM,"Localized swelling, mass and lump, unspecified",exact
+condition,lesion,56,R68.89,ICD-10-CM,Other general symptoms and signs,exact
+condition,recurrence,48,Z09,ICD-10-CM,Encounter for follow-up examination after completed treatment,exact
+condition,complications,46,Not Found,ICD-10-CM,complications,not_found
+condition,malignancy,45,C80.1,ICD-10-CM,"Malignant (primary) neoplasm, unspecified",exact
+condition,infection,37,B99.9,ICD-10-CM,Unspecified infectious disease,exact
+condition,trauma,35,Not Found,ICD-10-CM,trauma,not_found
+condition,asymptomatic,34,Not Found,ICD-10-CM,asymptomatic,not_found
+condition,lesions,33,Not Found,ICD-10-CM,lesions,not_found
+medication,prednisone,38,8640,RxNorm,prednisone,exact
+medication,methylprednisolone,32,155323,RxNorm,methylprednisolone,exact
+medication,aspirin,31,1191,RxNorm,aspirin,exact
+medication,dexamethasone,31,22690,RxNorm,dexamethasone,exact
+medication,ceftriaxone,26,2193,RxNorm,ceftriaxone,exact
+medication,vancomycin,26,11124,RxNorm,vancomycin,exact
+medication,prednisolone,22,34372,RxNorm,prednisolone,exact
+medication,oxygen,21,7806,RxNorm,oxygen,exact
+medication,azithromycin,19,1298839,RxNorm,azithromycin,exact
+medication,potassium,18,8588,RxNorm,potassium,exact
+procedure,physical examination,196,Z00.00,ICD-10-CM,Encounter for general adult medical examination,exact
+procedure,blood pressure,156,No ICD-10,ICD-10-CM,Blood pressure measurement (vital sign),exact
+procedure,surgery,151,No ICD-10,ICD-10-CM,Surgery - specify procedure for code,exact
+procedure,computed tomography,128,No ICD-10,ICD-10-CM,Computed tomography (use CPT 70000-76499),exact
+procedure,magnetic resonance imaging,126,No ICD-10,ICD-10-CM,MRI (use CPT 70336-77084),exact
+procedure,chest x-ray,89,No ICD-10,ICD-10-CM,Chest radiograph (use CPT 71045-71048),exact
+procedure,heart rate,89,Not Found,ICD-10-CM,heart rate,not_found
+procedure,vital signs,82,Not Found,ICD-10-CM,vital signs,not_found
+procedure,tumor,80,D49.9,ICD-10-CM,Neoplasm of unspecified behavior of unspecified site,exact
+procedure,respiratory rate,77,Not Found,ICD-10-CM,respiratory rate,not_found
+symptom,fever,147,R50.9,ICD-10-CM,"Fever, unspecified",exact
+symptom,pain,113,R52,ICD-10-CM,"Pain, unspecified",exact
+symptom,vomiting,80,R11.10,ICD-10-CM,"Vomiting, unspecified",exact
+symptom,nausea,72,R11.0,ICD-10-CM,Nausea,exact
+symptom,abdominal pain,68,R10.9,ICD-10-CM,Unspecified abdominal pain,exact
+symptom,cough,68,R05.9,ICD-10-CM,"Cough, unspecified",exact
+symptom,shortness of breath,67,R06.02,ICD-10-CM,Shortness of breath,exact
+symptom,dyspnea,52,R06.00,ICD-10-CM,"Dyspnea, unspecified",exact
+symptom,fatigue,51,R53.83,ICD-10-CM,Other fatigue,exact
+symptom,diarrhea,50,R19.7,ICD-10-CM,"Diarrhea, unspecified",exact

@@ -1,0 +1,51 @@
+Entity,i2b2 Label,Assigned Category
+hyperglycemia,PROBLEM,condition
+cough,PROBLEM,symptom
+nausea,PROBLEM,symptom
+paraplegia,PROBLEM,condition
+antipyretics,TREATMENT,procedure
+enlargement of the pancreatic head,PROBLEM,condition
+blood flow rate,TEST,procedure
+conduction blocks,PROBLEM,condition
+two blastocysts,PROBLEM,condition
+low sodium,TEST,condition
+perianal debridement,TREATMENT,procedure
+placement,TREATMENT,procedure
+implanted marker stays,TREATMENT,procedure
+mild permeative to moth-eaten lysis,PROBLEM,condition
+specialist support,TREATMENT,procedure
+glass foreign body in the spinal canal,PROBLEM,condition
+surgery,TREATMENT,procedure
+remarkable alteration,PROBLEM,condition
+slightly hypointense,PROBLEM,condition
+right to left shunting of blood,PROBLEM,condition
+high-dose corticosteroids,TREATMENT,procedure
+larger lesion,PROBLEM,condition
+series of polishing cups and points (optrafine polishing system,TREATMENT,procedure
+iron supplementation,TREATMENT,procedure
+brca2,TEST,procedure
+pretreatment,TEST,procedure
+ecmo,TREATMENT,procedure
+polymorphonuclear leukocytosis,PROBLEM,condition
+erythroid proliferation,PROBLEM,condition
+chlorhexidine),TREATMENT,medication
+ct imaging,TEST,procedure
+surface debridement,TREATMENT,procedure
+platelet count,TEST,procedure
+patient’s pain,PROBLEM,symptom
+complete blood (cell) count,TEST,procedure
+smarcb1 mutation,PROBLEM,condition
+elevated creatinine,PROBLEM,condition
+“mother-and-child” catheter into the svg,TREATMENT,procedure
+other pathology,PROBLEM,condition
+1.1 cm left pelvic sidewall lymph node,PROBLEM,condition
+plasma troponin i,TEST,procedure
+biopsy,TEST,procedure
+high-risk disease,PROBLEM,condition
+anti aml antibody,TEST,procedure
+occasional haemoptysis,PROBLEM,condition
+external beam radiation,TREATMENT,procedure
+abnormality of the hypoglossal canal,PROBLEM,condition
+acid-fast bacilli,TEST,procedure
+favourable disease progression,PROBLEM,condition
+tumor marker levels,TEST,procedure

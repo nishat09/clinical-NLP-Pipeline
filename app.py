@@ -1,9 +1,4 @@
-"""
-🏥 Medical Named Entity Dashboard
-Streamlit app — reads from pipeline checkpoints.
-
-Run:  streamlit run app.py
-"""
+#Necessary imports
 
 import streamlit as st
 import pandas as pd
@@ -11,20 +6,20 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
 
-# ─── Page config ──────────────────────────────────────────────────────────
+#Page config - not yet responsive :(
 st.set_page_config(
     page_title="Medical NER Dashboard",
-    page_icon="🏥",
+    page_icon="🩺",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-# ─── Custom CSS ───────────────────────────────────────────────────────────
+# Custom CSS- should've added a seperate file. in next push--->should change it
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
-    /* ── Global ─────────────────────────────────────────── */
+
     html, body, .stApp {
         background: #0a0e1a;
         color: #e2e8f0;
@@ -33,14 +28,14 @@ st.markdown("""
 
     .stApp > header { background: transparent; }
 
-    /* ── Remove default Streamlit padding ────────────────── */
+
     .block-container {
         padding-top: 2rem;
         padding-bottom: 0;
         max-width: 1200px;
     }
 
-    /* ── Hero section ───────────────────────────────────── */
+ 
     .hero {
         text-align: center;
         padding: 2.5rem 1rem 1.5rem 1rem;
@@ -68,7 +63,7 @@ st.markdown("""
         font-weight: 400;
     }
 
-    /* ── Metric cards ───────────────────────────────────── */
+
     .metric-row {
         display: flex;
         gap: 1rem;
@@ -106,14 +101,14 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* ── Category colors for values ─────────────────────── */
+
     .clr-condition  { color: #f87171; }
     .clr-symptom    { color: #fbbf24; }
     .clr-medication { color: #34d399; }
     .clr-procedure  { color: #60a5fa; }
     .clr-total      { color: #c4b5fd; }
 
-    /* ── Section headers ────────────────────────────────── */
+ 
     .section-header {
         font-family: 'DM Sans', sans-serif;
         font-size: 1.35rem;
@@ -124,7 +119,7 @@ st.markdown("""
         border-bottom: 1px solid #1e293b;
     }
 
-    /* ── Chat ───────────────────────────────────────────── */
+  
     .chat-container {
         background: #111827;
         border: 1px solid #1e293b;
@@ -154,7 +149,7 @@ st.markdown("""
         white-space: pre-wrap;
     }
 
-    /* ── Code table styling ─────────────────────────────── */
+
     .code-table {
         width: 100%;
         border-collapse: separate;
@@ -201,7 +196,6 @@ st.markdown("""
     .badge-approx     { background: #fbbf2422; color: #fbbf24; }
     .badge-notfound   { background: #f8717122; color: #f87171; }
 
-    /* ── Tabs ───────────────────────────────────────────── */
     .stTabs [data-baseweb="tab-list"] {
         gap: 0;
         background: #111827;
@@ -222,7 +216,7 @@ st.markdown("""
         color: #f1f5f9;
     }
 
-    /* ── Input styling ──────────────────────────────────── */
+
     .stTextInput > div > div > input {
         background: #1e293b;
         border: 1px solid #334155;
@@ -236,7 +230,6 @@ st.markdown("""
         box-shadow: 0 0 0 2px #60a5fa33;
     }
 
-    /* ── Footer ─────────────────────────────────────────── */
     .footer {
         text-align: center;
         padding: 3rem 0 2rem 0;
@@ -257,7 +250,6 @@ st.markdown("""
         font-weight: 600;
     }
 
-    /* ── Hide Streamlit branding ────────────────────────── */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     .stDeployButton { display: none; }
@@ -265,7 +257,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ─── Load data ────────────────────────────────────────────────────────────
+#Load checkpoint from local machine
 @st.cache_data
 def load_dashboard_data():
     """Load the checkpoint CSV."""
@@ -276,13 +268,12 @@ def load_dashboard_data():
     for p in paths:
         if os.path.exists(p):
             return pd.read_csv(p)
-    st.error("❌ `dashboard_data.csv` not found. Run the pipeline notebook first to generate checkpoints.")
+    st.error(" `dashboard_data.csv` not found.")
     st.stop()
 
 df = load_dashboard_data()
 
 
-# ─── Constants ────────────────────────────────────────────────────────────
 COLORS = {
     'condition': '#f87171',
     'symptom': '#fbbf24',
@@ -293,60 +284,72 @@ CAT_ORDER = ['condition', 'symptom', 'medication', 'procedure']
 CAT_EMOJI = {'condition': '🔴', 'symptom': '🟡', 'medication': '🟢', 'procedure': '🔵'}
 
 
-# ─── Hero ─────────────────────────────────────────────────────────────────
+#hero
 st.markdown("""
 <div class="hero">
-    <h1>🏥 Medical <span class="accent">Named Entity</span> Dashboard</h1>
-    <p>NCBI Open-Patients · 1,000 Records · Top 10 per Category · Stanza i2b2 NER</p>
+    <h1> Medical <span class="accent">Named Entity</span> Dashboard</h1>
 </div>
 """, unsafe_allow_html=True)
 
 
-# ─── Metric cards ─────────────────────────────────────────────────────────
 total = df['record_count'].sum()
-metrics_html = '<div class="metric-row">'
-metrics_html += f'''
+
+
+#cards_metric
+col0, col1, col2, col3, col4 = st.columns(5)
+
+with col0:
+    st.markdown(f"""
     <div class="metric-card">
         <div class="value clr-total">{len(df)}</div>
         <div class="label">Entities Tracked</div>
     </div>
-'''
-for cat in CAT_ORDER:
-    sub = df[df['category'] == cat]
-    cnt = sub['record_count'].sum()
-    metrics_html += f'''
-        <div class="metric-card">
-            <div class="value clr-{cat}">{cnt:,}</div>
-            <div class="label">{CAT_EMOJI[cat]} {cat.capitalize()}s</div>
-        </div>
-    '''
-metrics_html += '</div>'
-st.markdown(metrics_html, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+
+with col1:
+    cnt = df[df['category'] == 'condition']['record_count'].sum()
+    st.markdown(f"""
+    <div class="metric-card">
+        <div class="value clr-condition">{cnt:,}</div>
+        <div class="label">🔴 Conditions</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    cnt = df[df['category'] == 'symptom']['record_count'].sum()
+    st.markdown(f"""
+    <div class="metric-card">
+        <div class="value clr-symptom">{cnt:,}</div>
+        <div class="label">🟡 Symptoms</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    cnt = df[df['category'] == 'medication']['record_count'].sum()
+    st.markdown(f"""
+    <div class="metric-card">
+        <div class="value clr-medication">{cnt:,}</div>
+        <div class="label">🟢 Medications</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    cnt = df[df['category'] == 'procedure']['record_count'].sum()
+    st.markdown(f"""
+    <div class="metric-card">
+        <div class="value clr-procedure">{cnt:,}</div>
+        <div class="label">🔵 Procedures</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
-# ─── Tabs ─────────────────────────────────────────────────────────────────
-tab_chart, tab_table, tab_chat = st.tabs(["📊 Dashboard", "📋 Code Reference", "💬 Ask Questions"])
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 1: Dashboard charts
-# ═══════════════════════════════════════════════════════════════════════════
+#Tabs ---->need to work on it more later
+tab_chart, tab_table, tab_chat = st.tabs(["Dashboard", "Code Reference", "Ask me about data"])
 with tab_chart:
     st.markdown('<div class="section-header">Top 10 Entities by Category</div>', unsafe_allow_html=True)
 
-    fig = make_subplots(
-        rows=2, cols=2,
-        subplot_titles=[
-            f"{CAT_EMOJI[c]}  {c.capitalize()}s" for c in CAT_ORDER
-        ],
-        vertical_spacing=0.15,
-        horizontal_spacing=0.12,
-    )
-
     for cat in CAT_ORDER:
         sub = df[df['category'] == cat].sort_values('record_count')
-        row = 1 if cat in ('condition', 'symptom') else 2
-        col = 1 if cat in ('condition', 'medication') else 2
 
         hovers = [
             f"<b>{r['entity'].title()}</b><br>"
@@ -356,7 +359,7 @@ with tab_chart:
             for _, r in sub.iterrows()
         ]
 
-        fig.add_trace(go.Bar(
+        fig = go.Figure(go.Bar(
             x=sub['record_count'],
             y=sub['entity'].str.title(),
             orientation='h',
@@ -366,44 +369,44 @@ with tab_chart:
             ),
             hovertext=hovers,
             hoverinfo='text',
-            text=sub['record_count'],
+            text=[f'  {rc}' for rc in sub['record_count']],
             textposition='outside',
-            textfont=dict(size=10, color='#94a3b8'),
+            textfont=dict(size=11, color='#94a3b8'),
             showlegend=False,
-        ), row=row, col=col)
+        ))
 
-    fig.update_layout(
-        height=780,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='#111827',
-        font=dict(color='#e2e8f0', family='DM Sans, sans-serif', size=12),
-        margin=dict(t=60, b=30, l=10, r=50),
-        hoverlabel=dict(
-            bgcolor='#1e293b',
-            bordercolor='#334155',
-            font=dict(color='#e2e8f0', size=12, family='DM Sans'),
-        ),
-    )
-    fig.update_xaxes(
-        gridcolor='#1e293b', title_text='Records',
-        title_font=dict(size=10, color='#64748b'),
-        tickfont=dict(color='#94a3b8'),
-        zeroline=False,
-    )
-    fig.update_yaxes(
-        gridcolor='#1e293b',
-        tickfont=dict(size=11, color='#cbd5e1'),
-        zeroline=False,
-    )
-    for ann in fig['layout']['annotations']:
-        ann['font'] = dict(size=14, color='#f1f5f9', family='DM Sans')
+        fig.update_layout(
+            title=dict(
+                text=f"<b>{CAT_EMOJI[cat]}  {cat.capitalize()}s</b>",
+                x=0.0,
+                font=dict(size=15, color='white'),
+            ),
+            height=340,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='#111827',
+            font=dict(color='#e2e8f0', family='DM Sans, sans-serif'),
+            margin=dict(t=50, b=20, l=220, r=60),
+            xaxis=dict(
+                gridcolor='#1e293b',
+                title='Records',
+                title_font=dict(size=10, color='#64748b'),
+                tickfont=dict(color='#94a3b8'),
+                zeroline=False,
+            ),
+            yaxis=dict(
+                gridcolor='#1e293b',
+                tickfont=dict(size=12, color='#cbd5e1'),
+            ),
+            hoverlabel=dict(
+                bgcolor='#1e293b',
+                bordercolor='#334155',
+                font=dict(color='#e2e8f0', size=12),
+            ),
+        )
 
-    st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+        st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 2: Code reference table
-# ═══════════════════════════════════════════════════════════════════════════
+#dash+code
 with tab_table:
     st.markdown('<div class="section-header">Standard Medical Codes Reference</div>', unsafe_allow_html=True)
 
@@ -434,9 +437,7 @@ with tab_table:
     st.markdown(table_html, unsafe_allow_html=True)
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 3: Chatbot
-# ═══════════════════════════════════════════════════════════════════════════
+#chat(without llm implimentation)
 with tab_chat:
     st.markdown('<div class="section-header">Ask Questions About the Data</div>', unsafe_allow_html=True)
 
@@ -458,7 +459,6 @@ with tab_chat:
         """Process a user question and return an answer from the data."""
         q_lower = q.lower().strip()
 
-        # ── Category queries ──────────────────────────────────
         for cat in CAT_ORDER:
             if cat in q_lower:
                 sub = df[df['category'] == cat].sort_values('record_count', ascending=False)
@@ -470,7 +470,6 @@ with tab_chat:
                     )
                 return '\n'.join(lines)
 
-        # ── Most common ───────────────────────────────────────
         if any(kw in q_lower for kw in ['most common', 'highest', 'top overall', 'number one', '#1']):
             top = df.sort_values('record_count', ascending=False).iloc[0]
             return (
@@ -479,7 +478,7 @@ with tab_chat:
                 f"  Code:    {top['code']} ({top['code_system']})"
             )
 
-        # ── Code lookup ───────────────────────────────────────
+        #Code
         if 'code' in q_lower:
             results = []
             for _, r in df.iterrows():
@@ -493,7 +492,7 @@ with tab_chat:
                 return '\n\n'.join(results)
             return "Entity not found in top 40. Try the exact entity name."
 
-        # ── Compare / summary ─────────────────────────────────
+        #Compare
         if any(kw in q_lower for kw in ['compare', 'summary', 'overview']):
             lines = ["Category Overview:\n"]
             for cat in CAT_ORDER:
@@ -507,11 +506,11 @@ with tab_chat:
                 )
             return '\n'.join(lines)
 
-        # ── Show all ──────────────────────────────────────────
+        #Show all- kinda messy-can fix it later with better logic
         if any(kw in q_lower for kw in ['all', 'show', 'list', 'everything', 'full']):
             return df.to_string(index=False)
 
-        # ── Help ──────────────────────────────────────────────
+
         return (
             "I can answer:\n"
             "  • top conditions / symptoms / medications / procedures\n"
@@ -528,26 +527,25 @@ with tab_chat:
         answer = process_question(user_q)
         st.session_state.chat_history.append((user_q, answer))
 
-    # Render chat history (most recent first)
+    #chat history----implemented for now--might delete later
     if st.session_state.chat_history:
         for q_text, a_text in reversed(st.session_state.chat_history[-10:]):
-            st.markdown(f'<div class="chat-q">🧑 {q_text}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="chat-q"> {q_text}</div>', unsafe_allow_html=True)
             st.markdown(f'<div class="chat-a">{a_text}</div>', unsafe_allow_html=True)
     else:
         st.markdown("""
         <div style="text-align:center; color:#475569; padding:3rem 0;">
-            <div style="font-size:2.5rem; margin-bottom:0.5rem;">💬</div>
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;"></div>
             <div>Ask a question about the medical entities above</div>
         </div>
         """, unsafe_allow_html=True)
 
 
-# ─── Footer ───────────────────────────────────────────────────────────────
+#Footer
 st.markdown("""
 <div class="footer">
-    <p>Made with <span class="heart">♥</span> by <span class="name">Aziz Ahmed</span></p>
+    <p>Made with <span class="heart">♥</span> by <span class="name">Aziz Ahmed -- Trying to survive the era of AI</span></p>
     <p style="font-size:0.75rem; margin-top:0.4rem; color:#475569;">
-        NCBI Open-Patients · Stanza i2b2 NER · RxNorm + ICD-10-CM
     </p>
 </div>
 """, unsafe_allow_html=True)
